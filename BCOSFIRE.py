@@ -67,16 +67,25 @@ if __name__ == '__main__':
 	import sys
 	import cv2
 	import matplotlib.pyplot as plt
-	img_rgb = cv2.cvtColor(cv2.imread(sys.argv[1],1), cv2.COLOR_BGR2RGB)
-	img_rgb = np.pad(img_rgb,((20,20),(20,20),(0,0))) # Add some padding to get rid of the white edges in the output vessel image
+	img_rgb = cv2.cvtColor(cv2.imread(sys.argv[1], 1), cv2.COLOR_BGR2RGB)
+	img_rgb = np.pad(img_rgb, ((20, 20), (20, 20), (0, 0)))  # Add padding
+
 	mask = np.ones(shape=img_rgb.shape[:-1])
 
-	resp,segresp = BCOSFIRE(img_rgb,mask)
-	resp = resp[20:-20,20:-20] # Remove padding
-	p_vessel = resp/np.amax(resp)
-	# plt.imsave('./figures/sample_0_out.png',p_vessel,cmap='gray')
-	plt.imshow(p_vessel,cmap='gray')
-	plt.show()
+	resp, segresp = BCOSFIRE(img_rgb, mask)
+	resp = resp[20:-20, 20:-20]  # Remove padding
+	p_vessel = resp / np.amax(resp)
+
+	# Extract base name from the input file path
+	base_name = os.path.splitext(os.path.basename(sys.argv[1]))[0]
+
+	# Construct the output file name
+	output_file_name = f'./figures/{base_name}_output.png'
+
+	# Save the output image
+	plt.imsave(output_file_name, p_vessel, cmap='gray')
+	# plt.imshow(p_vessel,cmap='gray')
+	# plt.show()
 
 
 
