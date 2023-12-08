@@ -16,7 +16,7 @@ You should have received a copy of the BSD General Public License along with
 this program. If not, see https://github.com/Brains-for-hire/bcosfire_python/blob/main/LICENSE.
 """
 
-
+import os
 import numpy as np
 import cosfire as c
 
